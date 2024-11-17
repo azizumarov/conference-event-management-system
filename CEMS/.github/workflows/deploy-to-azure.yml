@@ -1,0 +1,28 @@
+name: Deploy to Azure
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Set up Azure CLI
+        uses: azure/setup-azurecli@v1
+
+      - name: Log in to Azure
+        run: az login --service-principal -u ${{ secrets.AZURE_CLIENT_ID }} -p ${{ secrets.AZURE_CLIENT_SECRET }} --tenant ${{ secrets.AZURE_TENANT_ID }}
+
+      - name: Deploy to Azure Kubernetes
+        run: |
+          kubectl apply -f k8s/deployment.yaml
+          kubectl apply -f k8s/service.yaml
+
+      - name: Deploy Blob Storage configuration
+        run: |
+          az storage account create --name cemsstorageaccount --resource-group myResourceGroup

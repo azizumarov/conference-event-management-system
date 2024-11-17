@@ -1,0 +1,38 @@
+name: Build and Test Backend Service
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Set up .NET Core (if using .NET Core for backend services)
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '8.0'
+
+      - name: Install dependencies
+        run: |
+          dotnet restore
+          dotnet build --configuration Release
+
+      - name: Run tests
+        run: dotnet test --configuration Release --no-build
+
+      - name: Build Docker image
+        run: |
+          docker build -t yourdockerhubusername/auth-service .
+          
+      - name: Push Docker image to Docker Hub
+        run: |
+          docker push yourdockerhubusername/auth-service
+
