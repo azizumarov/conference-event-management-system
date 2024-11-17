@@ -1,0 +1,11 @@
+@CEMS.AuthService_HostAddress = http://localhost:5240
+
+GET {{CEMS.AuthService_HostAddress}}/todos/
+Accept: application/json
+
+###
+
+GET {{CEMS.AuthService_HostAddress}}/todos/1
+Accept: application/json
+
+###

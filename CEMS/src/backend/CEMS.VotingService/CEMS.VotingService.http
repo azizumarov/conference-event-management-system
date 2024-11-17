@@ -1,0 +1,11 @@
+@CEMS.VotingService_HostAddress = http://localhost:5126
+
+GET {{CEMS.VotingService_HostAddress}}/todos/
+Accept: application/json
+
+###
+
+GET {{CEMS.VotingService_HostAddress}}/todos/1
+Accept: application/json
+
+###
