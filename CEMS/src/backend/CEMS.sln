@@ -7,13 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CEMS.Core", "CEMS.Core\CEMS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CEMS.Shared", "CEMS.Shared\CEMS.Shared.csproj", "{CAC32B41-2F29-42F8-98E6-F63696E76CCA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CEMS.AuthService", "CEMS.AuthService\CEMS.AuthService.csproj", "{6E7EDFAB-545E-458F-82B2-A98F3E65DEEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CEMS.AuthService", "CEMS.AuthService\CEMS.AuthService.csproj", "{6E7EDFAB-545E-458F-82B2-A98F3E65DEEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CEMS.ConferenceService", "CEMS.ConferenceService\CEMS.ConferenceService.csproj", "{17C6C22C-5691-4E0E-9210-87DFE3B1BF05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CEMS.ConferenceService", "CEMS.ConferenceService\CEMS.ConferenceService.csproj", "{17C6C22C-5691-4E0E-9210-87DFE3B1BF05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CEMS.SessionService", "CEMS.SessionService\CEMS.SessionService.csproj", "{9649B6F4-C42F-4307-9B78-C36E788441B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CEMS.SessionService", "CEMS.SessionService\CEMS.SessionService.csproj", "{9649B6F4-C42F-4307-9B78-C36E788441B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CEMS.VotingService", "CEMS.VotingService\CEMS.VotingService.csproj", "{C19BBB49-B102-49CB-944E-8AFCBAD67B48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CEMS.VotingService", "CEMS.VotingService\CEMS.VotingService.csproj", "{C19BBB49-B102-49CB-944E-8AFCBAD67B48}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{663111C3-DD05-45F6-94BD-1FB426A13404}"
 	ProjectSection(SolutionItems) = preProject
@@ -24,27 +24,29 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "backend", "backend", "{2824
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{891FC3BB-160D-49E5-8410-C2394C297929}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CEMS.AuthService.Tests", "..\tests\CEMS.AuthService.Tests\CEMS.AuthService.Tests.csproj", "{83EB8C3F-32BA-4E21-AA36-14593DD73C3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CEMS.AuthService.Tests", "..\tests\CEMS.AuthService.Tests\CEMS.AuthService.Tests.csproj", "{83EB8C3F-32BA-4E21-AA36-14593DD73C3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CEMS.Shared.Tests", "..\tests\CEMS.Shared.Tests\CEMS.Shared.Tests.csproj", "{DE36FAC6-8A9D-4100-8900-9DE0BDBD746C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CEMS.Shared.Tests", "..\tests\CEMS.Shared.Tests\CEMS.Shared.Tests.csproj", "{DE36FAC6-8A9D-4100-8900-9DE0BDBD746C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CEMS.Core.Tests", "..\tests\CEMS.Core.Tests\CEMS.Core.Tests.csproj", "{76195C88-DE8A-4F5A-B5CA-E59432D83352}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CEMS.Core.Tests", "..\tests\CEMS.Core.Tests\CEMS.Core.Tests.csproj", "{76195C88-DE8A-4F5A-B5CA-E59432D83352}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CEMS.ConferenceService.Tests", "..\tests\CEMS.ConferenceService.Tests\CEMS.ConferenceService.Tests.csproj", "{836A4DAF-396B-4208-8B4B-DF022E7D70A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CEMS.ConferenceService.Tests", "..\tests\CEMS.ConferenceService.Tests\CEMS.ConferenceService.Tests.csproj", "{836A4DAF-396B-4208-8B4B-DF022E7D70A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CEMS.SessionService.Tests", "..\tests\CEMS.SessionService.Tests\CEMS.SessionService.Tests.csproj", "{3424AFEC-4D59-4F76-B889-43798938834C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CEMS.SessionService.Tests", "..\tests\CEMS.SessionService.Tests\CEMS.SessionService.Tests.csproj", "{3424AFEC-4D59-4F76-B889-43798938834C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CEMS.VotingService.Tests", "..\tests\CEMS.VotingService.Tests\CEMS.VotingService.Tests.csproj", "{84DC8ACD-E8F5-4A52-9461-716DF194E890}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CEMS.VotingService.Tests", "..\tests\CEMS.VotingService.Tests\CEMS.VotingService.Tests.csproj", "{84DC8ACD-E8F5-4A52-9461-716DF194E890}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "frontend", "frontend", "{B04BE8FF-57D9-4387-B487-9CCF1AB83AD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CEMS.Web", "..\frontend\web\CEMS.Web\CEMS.Web.csproj", "{D5B81025-3D86-44E4-B320-822DDD54FB4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CEMS.Web", "..\frontend\web\CEMS.Web\CEMS.Web.csproj", "{D5B81025-3D86-44E4-B320-822DDD54FB4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CEMS.Web.Tests", "..\tests\CEMS.Web.Tests\CEMS.Web.Tests.csproj", "{60C968E4-A27D-4E33-A3B8-BFD4294965DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CEMS.Web.Tests", "..\tests\CEMS.Web.Tests\CEMS.Web.Tests.csproj", "{60C968E4-A27D-4E33-A3B8-BFD4294965DD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "web", "web", "{89711361-BD57-47AC-A429-B9BD6D6D01F1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mobile", "mobile", "{6D075234-AADB-48AA-825C-9BD56371E07F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CEMS.Dal", "CEMS.Dal\CEMS.Dal.csproj", "{A8240667-D01C-49A1-8DE2-C7526701B29B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -108,6 +110,10 @@ Global
 		{60C968E4-A27D-4E33-A3B8-BFD4294965DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60C968E4-A27D-4E33-A3B8-BFD4294965DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60C968E4-A27D-4E33-A3B8-BFD4294965DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8240667-D01C-49A1-8DE2-C7526701B29B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8240667-D01C-49A1-8DE2-C7526701B29B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8240667-D01C-49A1-8DE2-C7526701B29B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8240667-D01C-49A1-8DE2-C7526701B29B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -129,6 +135,7 @@ Global
 		{60C968E4-A27D-4E33-A3B8-BFD4294965DD} = {891FC3BB-160D-49E5-8410-C2394C297929}
 		{89711361-BD57-47AC-A429-B9BD6D6D01F1} = {B04BE8FF-57D9-4387-B487-9CCF1AB83AD7}
 		{6D075234-AADB-48AA-825C-9BD56371E07F} = {B04BE8FF-57D9-4387-B487-9CCF1AB83AD7}
+		{A8240667-D01C-49A1-8DE2-C7526701B29B} = {282401A1-9735-4FEF-A176-BB4A02E5026E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9320E35C-FAC0-40C8-87C6-CC30E3E1F736}
