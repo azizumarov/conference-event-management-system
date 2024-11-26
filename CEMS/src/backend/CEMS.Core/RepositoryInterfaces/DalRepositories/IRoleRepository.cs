@@ -1,14 +1,10 @@
-﻿using CEMS.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using CEMS.Core.Entities;
 
 namespace CEMS.Core.RepositoryInterfaces.DalRepositories
 {
     public interface IRoleRepository : IHasIdRepository<Role>
     {
-
+        public Task<List<Role>> GetUserRolesAsync(Guid userId);
     }
 }

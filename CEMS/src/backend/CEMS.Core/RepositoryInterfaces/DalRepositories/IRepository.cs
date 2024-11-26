@@ -10,7 +10,6 @@ namespace CEMS.Core.RepositoryInterfaces.DalRepositories
     public interface IRepository<T> where T : class
     {
         Task<int> GetCountAsync();
-        Task<int> GetCountAsync(Expression<Func<T, bool>> expression);
         Task<bool> AnyAsync();
         Task<T> AddAsync(T item);
         Task<List<T>> GetAllAsync();

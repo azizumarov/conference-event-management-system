@@ -16,6 +16,11 @@ namespace CEMS.Dal.Repositories
             throw new NotImplementedException();
         }
 
+        public Task<bool> AddRoleToUserAsync(Guid userId, Guid roleId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<bool> AnyAsync()
         {
             throw new NotImplementedException();

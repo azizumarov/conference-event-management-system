@@ -55,5 +55,10 @@ namespace CEMS.Dal.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public Task<List<Role>> GetUserRolesAsync(Guid userId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
