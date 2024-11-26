@@ -1,11 +1,22 @@
 @CEMS.AuthService_HostAddress = http://localhost:5240
 
-GET {{CEMS.AuthService_HostAddress}}/todos/
+POST {{CEMS.AuthService_HostAddress}}/register/
 Accept: application/json
-
+Content-Type: application/json
+{
+    "email": "user@example.com",
+    "phone_number": "1234",
+    "login": "user@example.com",
+    "password": "securepassword123"
+}
 ###
 
-GET {{CEMS.AuthService_HostAddress}}/todos/1
+POST {{CEMS.AuthService_HostAddress}}/login/
 Accept: application/json
+Content-Type: application/json
+{
+  "login": "user@example.com",
+  "password": "securepassword123"
+}
 
 ###

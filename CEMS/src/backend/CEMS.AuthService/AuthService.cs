@@ -1,6 +1,7 @@
 ﻿using CEMS.Core.Entities;
 using CEMS.Core.Interfaces;
 using CEMS.Core.RepositoryInterfaces.DalRepositories;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CEMS.AuthService
 {
@@ -11,12 +12,12 @@ namespace CEMS.AuthService
             return userRepository.AddRoleToUserAsync(userId, roleId);
         }
 
-        public async Task<string?> AuthenticateUserAsync(string login, string password)
+        public async Task<string?> AuthenticateUserAsync([FromBody] string login, [FromBody] string password)
         {
             var users = await userRepository.GetAllAsync();
             var user = users.FirstOrDefault(user => user.Login == login);
             if (user == null) throw new Exception("User Not Found");
-            if (!passwordHasher.VerifyPassword(password, user.PasswordHash)) return "Access Denied";
+            if (!passwordHasher.VerifyPassword(password, user.PasswordHash)) return null;
             return "Authenticated";
         }
 
