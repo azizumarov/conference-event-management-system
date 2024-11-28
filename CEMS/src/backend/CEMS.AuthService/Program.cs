@@ -1,11 +1,15 @@
 using CEMS.AuthService.Models;
+using CEMS.Core.Configurations;
 using CEMS.Core.Entities;
 using CEMS.Core.Interfaces;
 using CEMS.Core.RepositoryInterfaces.DalRepositories;
+using CEMS.Dal;
+using CEMS.Dal.Models;
 using CEMS.Dal.Repositories;
+using CEMS.Dal.SqlContext;
 using CEMS.Shared;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
 namespace CEMS.AuthService
@@ -15,11 +19,29 @@ namespace CEMS.AuthService
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateSlimBuilder(args);
+            var configuration = builder.Configuration;
+
+            var connectionString = configuration.GetConnectionString(Constants.DATABASE_CONNECTION_STRING);
+
+            builder.Services.AddDbContext<CemsDBContext>(options =>
+            {
+                options.UseSqlServer(
+                    connectionString,
+                    sqlServerOptions => sqlServerOptions.EnableRetryOnFailure(
+                        maxRetryCount: 5,
+                        maxRetryDelay: TimeSpan.FromSeconds(10),
+                        errorNumbersToAdd: null)
+                    );
+            });
+
+            var dbFactory = new CemsContextFactory(connectionString);
+            builder.Services.AddSingleton(typeof(ICemsContextFactory), dbFactory);
 
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IRoleRepository, RoleRepository>();
-            builder.Services.AddSingleton<IPasswordHasher, PasswordHasher>(); 
+            builder.Services.AddSingleton<IPasswordHasher, PasswordHasher>();
+            builder.Services.AddAutoMapper(typeof(AppMappingProfile));
 
             builder.Services.ConfigureHttpJsonOptions(options =>
             {
@@ -30,7 +52,7 @@ namespace CEMS.AuthService
 
             app.MapPost("/register", async ([FromBody] AddUserModel model, IAuthService authService) =>
             {
-                var user = new User
+                var user = new Core.Entities.User
                 {
                     Id = Guid.NewGuid(),
                     Email = model.Email,

@@ -4,6 +4,8 @@ POST {{CEMS.AuthService_HostAddress}}/register/
 Accept: application/json
 Content-Type: application/json
 {
+    "first_name": "Aziz",
+    "last_name": "Umarov",
     "email": "user@example.com",
     "phone_number": "1234",
     "login": "user@example.com",

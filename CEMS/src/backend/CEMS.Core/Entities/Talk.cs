@@ -19,7 +19,7 @@ namespace CEMS.Core.Entities
 
         public DateTime ScheduledTime { get; set; }
 
-        public Speaker Speaker { get; set; }
+        public virtual Speaker Speaker { get; set; }
 
     }
 }

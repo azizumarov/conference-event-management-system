@@ -13,6 +13,6 @@ namespace CEMS.Core.Entities
         public Vote Vote { get; set; } = Vote.None;
         public string Feedback { get; set; }
         public virtual User User { get; set; }
-        public virtual Conference Conference { get; set; }
+        public virtual Talk Talk { get; set; }
     }
 }

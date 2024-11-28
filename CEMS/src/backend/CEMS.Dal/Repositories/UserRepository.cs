@@ -1,79 +1,54 @@
-﻿using CEMS.Core.Entities;
+﻿using AutoMapper;
+using CEMS.Core.Entities;
 using CEMS.Core.RepositoryInterfaces.DalRepositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+using CEMS.Dal.SqlContext;
+using Microsoft.EntityFrameworkCore;
 
 namespace CEMS.Dal.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository(ICemsContextFactory dbFactory, IMapper mapper) : HasIdRepository<User, Dal.Models.User>(dbFactory, mapper), IUserRepository
     {
-        public Task<User> AddAsync(User item)
+        public async Task<bool> AddRoleToUserAsync(Guid userId, Guid roleId)
         {
-            throw new NotImplementedException();
+            var dbContext = dbFactory.CreateContext();
+            var userRole = new Models.UserRole() { Id = Guid.NewGuid(), UserId = userId, RoleId = roleId };
+            _ = dbContext.Add(userRole);
+            _ = await dbContext.SaveChangesAsync();
+            return true;
         }
 
-        public Task<bool> AddRoleToUserAsync(Guid userId, Guid roleId)
+        public Task<List<User>> GetConferenceAttendeesAsync(Guid conferenceId)
         {
-            throw new NotImplementedException();
+            return dbFactory.CreateContext()
+                .Attendees
+                .Include(item => item.Talk)
+                .ThenInclude(item => item.Session)                
+                .Where(item => item.Talk.Session.ConferenceId == conferenceId)
+                .Select(item => mapper.Map<User>(item))
+                .AsNoTracking()
+                .ToListAsync();
         }
 
-        public Task<bool> AnyAsync()
+        public Task<List<User>> GetConferenceModeratorsAsync(Guid conferenceId)
         {
-            throw new NotImplementedException();
+            return dbFactory.CreateContext()
+                .Moderators                
+                .Where(item => item.ConferenceId == conferenceId)
+                .Select(item => mapper.Map<User>(item))
+                .AsNoTracking()
+                .ToListAsync();
         }
 
-        public Task<bool> ExistsAsync(Guid id)
+        public Task<List<User>> GetConferenceSpeakersAsync(Guid conferenceId)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<User>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<User>> GetByIdsAsync(IEnumerable<Guid> ids)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<User>> GetByIdsAsync(IEnumerable<Guid> ids, bool includeTracking)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<User>> GetConferenceAttendeesAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<User>> GetConferenceModeratorsAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<User>> GetConferenceSpeakersAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<int> GetCountAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<int> GetCountAsync(Expression<Func<User, bool>> expression)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<User> GetItemByIdAsync(Guid id)
-        {
-            throw new NotImplementedException();
+            return dbFactory.CreateContext()
+                .Speakers
+                .Include(item => item.Talk)
+                .ThenInclude(item => item.Session)
+                .Where(item => item.Talk.Session.ConferenceId == conferenceId)
+                .Select(item => mapper.Map<User>(item))
+                .AsNoTracking()
+                .ToListAsync();
         }
     }
 }

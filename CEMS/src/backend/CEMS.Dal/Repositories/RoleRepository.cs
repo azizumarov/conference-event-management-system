@@ -1,64 +1,21 @@
-﻿using CEMS.Core.Entities;
+﻿using AutoMapper;
+using CEMS.Core.Entities;
 using CEMS.Core.RepositoryInterfaces.DalRepositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+using CEMS.Dal.SqlContext;
+using Microsoft.EntityFrameworkCore;
 
 namespace CEMS.Dal.Repositories
 {
-    public class RoleRepository : IRoleRepository
+    public class RoleRepository(ICemsContextFactory dbFactory, IMapper mapper) : HasIdRepository<Role, Dal.Models.Role>(dbFactory, mapper), IRoleRepository
     {
-        public Task<Role> AddAsync(Role item)
+        public async Task<List<Role>> GetUserRolesAsync(Guid userId)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> AnyAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> ExistsAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<Role>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<Role>> GetByIdsAsync(IEnumerable<Guid> ids)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<Role>> GetByIdsAsync(IEnumerable<Guid> ids, bool includeTracking)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<int> GetCountAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<int> GetCountAsync(Expression<Func<Role, bool>> expression)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Role> GetItemByIdAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<Role>> GetUserRolesAsync(Guid userId)
-        {
-            throw new NotImplementedException();
+            
+            return await dbFactory.CreateContext().Set<Dal.Models.UserRole>()
+                .Where(item => item.UserId == userId)
+                .Select(item => mapper.Map<Role>(item))
+                .AsNoTracking()
+                .ToListAsync();
         }
     }
 }

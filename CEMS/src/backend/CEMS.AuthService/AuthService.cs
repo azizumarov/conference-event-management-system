@@ -34,7 +34,7 @@ namespace CEMS.AuthService
                 var result = await userRepository.AddAsync(user);
                 return true;
             }
-            catch 
+            catch(Exception ex ) 
             {
                 return false;
             }
