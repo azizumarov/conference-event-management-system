@@ -55,9 +55,9 @@ jobs:
           parameters: repo/CEMS/deployment/Templates/cems-database.parameters.json sqlServerName=${{env.SQLSERVER_NAME}} databaseName=${{env.DATABASE_NAME}} sqlAdminLogin=${{env.SQLADMIN_LOGIN}} sqlAdminPass=${{env.SQLADMIN_PASS}} # Set this to the location of your parameters file
 
 
-          # Deployment of template    
+      
       # Deployment of template    
-      - name: Deploy ARM Template cems-database ${{ env.SQLSERVER_NAME }}
+      - name: Deploy ARM Template authsevice-resources ${{ env.CEMS_AUTH_SERVICE_NAME }}
         uses: azure/arm-deploy@v1
         with:
           # You can change these environment variables for your configuration:   AZURE_SUBSCRIPTION_ID
@@ -65,8 +65,8 @@ jobs:
           subscriptionId: ${{ env.AZURE_SUBSCRIPTION_ID }}
           resourceGroupName: ${{env.AZURE_RESOURCEGROUP_NAME}}
           region: centralus # Set this to your target region
-          template: repo/CEMS/deployment/Templates/cems-database.json  # Set this to the location of your template file
-          parameters: repo/CEMS/deployment/Templates/cems-database.parameters.json seriviceName=${{env.CEMS_AUTH_SERVICE_NAME}} aspName=${{env.CEMS_APP_SERVICE_PLAN_NAME}} # Set this to the location of your parameters file
+          template: repo/CEMS/deployment/Templates/cems-auth-service-resources.json  # Set this to the location of your template file
+          parameters: repo/CEMS/deployment/Templates/cems-auth-service-resources.parameters.json seriviceName=${{env.CEMS_AUTH_SERVICE_NAME}} aspName=${{env.CEMS_APP_SERVICE_PLAN_NAME}} # Set this to the location of your parameters file
  
 
 
