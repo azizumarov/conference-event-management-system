@@ -19,7 +19,13 @@ jobs:
     build-and-deploy-to-dev:
       runs-on: ubuntu-latest
       steps:
-
+      
+      # Checkout
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          path: repo
+      
       - name: Azure Login with Federated Identity
         uses: azure/login@v1
         with:
