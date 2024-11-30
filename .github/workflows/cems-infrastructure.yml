@@ -33,8 +33,8 @@ jobs:
           scope: subscription
           subscriptionId: ${{ env.AZURE_SUBSCRIPTION_ID }}
           region: centralus # Set this to your target region
-          template: repo/templates/azuredeploy.resourcegroup.json  # Set this to the location of your template file
-          parameters: repo/templates/azuredeploy.resourcegroup.parameters.json rgName=${{env.AZURE_RESOURCEGROUP_NAME}} #override rgName in parameters file
+          template: repo/CEMS/deployment/Templates/cems-resource-group.json  # Set this to the location of your template file
+          parameters: repo/CEMS/deployment/Templates/cems-resource-group.parameters.json rgName=${{env.AZURE_RESOURCEGROUP_NAME}} #override rgName in parameters file
 
 
       # Deployment of template    
@@ -46,5 +46,5 @@ jobs:
           subscriptionId: ${{ env.AZURE_SUBSCRIPTION_ID }}
           resourceGroupName: ${{env.AZURE_RESOURCEGROUP_NAME}}
           region: centralus # Set this to your target region
-          template: repo/templates/azuredeploy.json  # Set this to the location of your template file
-          parameters: repo/templates/azuredeploy.parameters.json sqlServerName=${{env.SQLSERVER_NAME}} databaseName=${{env.DATABASE_NAME}} sqlAdminLogin=${{env.SQLADMIN_LOGIN}} sqlAdminPass=${{env.SQLADMIN_PASS}} # Set this to the location of your parameters file
+          template: repo/CEMS/deployment/Templates/azuredeploy.json  # Set this to the location of your template file
+          parameters: repo/CEMS/deployment/Templates/azuredeploy.parameters.json sqlServerName=${{env.SQLSERVER_NAME}} databaseName=${{env.DATABASE_NAME}} sqlAdminLogin=${{env.SQLADMIN_LOGIN}} sqlAdminPass=${{env.SQLADMIN_PASS}} # Set this to the location of your parameters file
