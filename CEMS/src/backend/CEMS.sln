@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CEMS.VotingService", "CEMS.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{663111C3-DD05-45F6-94BD-1FB426A13404}"
 	ProjectSection(SolutionItems) = preProject
+		..\..\deployment\Templates\cems-auth-service-resources.json = ..\..\deployment\Templates\cems-auth-service-resources.json
+		..\..\deployment\Templates\cems-auth-service-resources.parameters.json = ..\..\deployment\Templates\cems-auth-service-resources.parameters.json
 		..\..\deployment\Templates\cems-database.json = ..\..\deployment\Templates\cems-database.json
 		..\..\deployment\Templates\cems-database.parameters.json = ..\..\deployment\Templates\cems-database.parameters.json
 		..\..\deployment\Templates\cems-resource-group.json = ..\..\deployment\Templates\cems-resource-group.json

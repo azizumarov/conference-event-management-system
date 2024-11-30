@@ -1,0 +1,116 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "seriviceName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of your web service"
+      }
+    },
+    "aspName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of your app service plan"
+      }
+    },
+    "aspSKU": {
+      "type": "string",
+      "metadata": {
+        "description": "description"
+      },
+      "defaultValue": "S1"
+    },
+    "skuName": {
+      "type": "string",
+      "defaultValue": "S1",
+      "allowedValues": [
+        "F1",
+        "B1",
+        "B2",
+        "B3",
+        "S1",
+        "S2",
+        "S3",
+        "P1v2",
+        "P2v2",
+        "P3v2",
+        "P1v3",
+        "P2v3",
+        "P3v3"
+      ],
+      "metadata": {
+        "description": "Describes plan's pricing tier and instance size. Check details at https://azure.microsoft.com/en-us/pricing/details/app-service/"
+      }
+    },
+    "skuCapacity": {
+      "type": "int",
+      "defaultValue": 1,
+      "minValue": 1,
+      "metadata": {
+        "description": "Describes plan's instance count"
+      }
+    }
+  },
+  "functions": [],
+  "variables": {
+    "sqlDatabaseServerlessTiers": [
+      "GP_S_Gen5_1",
+      "GP_S_Gen5_2",
+      "GP_S_Gen5_4"
+    ]
+  },
+  "resources": [
+    {
+      "name": "[parameters('seriviceName')]",
+      "type": "Microsoft.Web/sites",
+      "apiVersion": "2018-11-01",
+      "location": "[resourceGroup().location]",
+      "tags": {
+        "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', parameters('aspName'))]": "Resource",
+        "displayName": "[parameters('seriviceName')]"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/serverfarms', parameters('aspName'))]"
+      ],
+      "properties": {
+        "name": "[parameters('seriviceName')]",
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('aspName'))]"
+      }
+    },
+    {
+      "name": "[parameters('aspName')]",
+      "type": "Microsoft.Web/serverfarms",
+      "apiVersion": "2018-02-01",
+      "location": "[resourceGroup().location]",
+      "sku": {
+        "name": "[parameters('aspSKU')]",
+        "capacity": 1
+      },
+      "tags": {
+        "displayName": "[parameters('aspName')]"
+      },
+      "properties": {
+        "name": "[parameters('aspName')]"
+      }
+    },
+    {
+      "apiVersion": "2020-06-01",
+      "type": "Microsoft.Web/sites/slots",
+      "name": "[concat(parameters('seriviceName'), '/', 'staging')]",
+      "kind": "app",
+      "location": "[resourceGroup().location]",
+      "comments": "This specifies the web app slots.",
+      "tags": {
+        "displayName": "WebAppSlots"
+      },
+      "properties": {
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('aspName'))]"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/Sites', parameters('seriviceName'))]"
+      ]
+    }
+  ],
+  "outputs": {}
+}
