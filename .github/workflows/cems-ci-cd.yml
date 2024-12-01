@@ -14,7 +14,7 @@ env:
     CEMS_APP_SERVICE_PLAN_NAME: cems-app-service
     CEMS_AUTH_SERVICE_NAME: cems-auth-service
     CEMS_AUTH_SERVICE_PATH: repo/CEMS/src/backend/CEMS.AuthService
-    CEMS_AUTH_SERVICE_PROJECT: repo/CEMS/src/backend/CEMS.AuthService/CEMS.AuthService.csproj
+    CEMS_AUTH_SERVICE_PROJECT: CEMS.AuthService.csproj
     CEMS_AUTH_SERVICE_PUBLISH_PROFILE: ${{ secrets.AUTH_SERVICE_PUBLISH_PROFILE }}
     DOTNET_VERSION: '8.0.x'
 jobs:
@@ -37,8 +37,8 @@ jobs:
       # Run dotnet build and publish
       - name: dotnet build and publish
         run: |
-          dotnet build ${{env.CEMS_AUTH_SERVICE_PROJECT}} --configuration Release
-          dotnet publish ${{env.CEMS_AUTH_SERVICE_PROJECT}} -c Release -o myapp 
+          dotnet build ${{env.CEMS_AUTH_SERVICE_PATH}}/${{env.CEMS_AUTH_SERVICE_PROJECT}} --configuration Release
+          dotnet publish ${{env.CEMS_AUTH_SERVICE_PATH}}/${{env.CEMS_AUTH_SERVICE_PROJECT}} -c Release -o ${{env.CEMS_AUTH_SERVICE_PATH}}/myapp 
 
       # Deploy to Azure Web apps staging slot
       - name: 'Run Azure webapp deploy action using publish profile credentials'
