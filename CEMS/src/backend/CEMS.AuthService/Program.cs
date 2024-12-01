@@ -4,11 +4,13 @@ using CEMS.Core.Entities;
 using CEMS.Core.Interfaces;
 using CEMS.Core.RepositoryInterfaces.DalRepositories;
 using CEMS.Dal;
+using CEMS.Dal.Configuration;
 using CEMS.Dal.Models;
 using CEMS.Dal.Repositories;
 using CEMS.Dal.SqlContext;
 using CEMS.Shared;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
@@ -21,27 +23,9 @@ namespace CEMS.AuthService
             var builder = WebApplication.CreateSlimBuilder(args);
             var configuration = builder.Configuration;
 
-            var connectionString = configuration.GetConnectionString(Constants.DATABASE_CONNECTION_STRING);
-
-            builder.Services.AddDbContext<CemsDBContext>(options =>
-            {
-                options.UseSqlServer(
-                    connectionString,
-                    sqlServerOptions => sqlServerOptions.EnableRetryOnFailure(
-                        maxRetryCount: 5,
-                        maxRetryDelay: TimeSpan.FromSeconds(10),
-                        errorNumbersToAdd: null)
-                    );
-            });
-
-            var dbFactory = new CemsContextFactory(connectionString);
-            builder.Services.AddSingleton(typeof(ICemsContextFactory), dbFactory);
-
             builder.Services.AddScoped<IAuthService, AuthService>();
-            builder.Services.AddScoped<IUserRepository, UserRepository>();
-            builder.Services.AddScoped<IRoleRepository, RoleRepository>();
-            builder.Services.AddSingleton<IPasswordHasher, PasswordHasher>();
-            builder.Services.AddAutoMapper(typeof(AppMappingProfile));
+
+            builder.Services.ConfigureDal(configuration);
 
             builder.Services.ConfigureHttpJsonOptions(options =>
             {
@@ -49,7 +33,7 @@ namespace CEMS.AuthService
             });
 
             var app = builder.Build();
-
+            
             app.MapPost("/register", async ([FromBody] AddUserModel model, IAuthService authService) =>
             {
                 var user = new Core.Entities.User
