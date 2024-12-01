@@ -65,5 +65,5 @@ jobs:
 
       - name: Update Database
         run: |
-          dotnet tool install --global dotnet-ef --version ${{DOTNET_VERSION}}
+          dotnet tool install --global dotnet-ef --version ${{ env.DOTNET_VERSION }}
           dotnet ef database update
