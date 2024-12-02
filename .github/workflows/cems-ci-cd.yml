@@ -13,6 +13,7 @@ env:
     SQLADMIN_PASS: ${{ secrets.SQLADMIN_PASS  }}                 # Create a secret in your Github repo for the SQL Admin password you want to use
     CEMS_APP_SERVICE_PLAN_NAME: cems-app-service
     CEMS_AUTH_SERVICE_NAME: cems-auth-service
+    CEMS_SOLUTION_PATH: repo/CEMS/src/backend/
     CEMS_AUTH_SERVICE_PATH: repo/CEMS/src/backend/CEMS.AuthService
     CEMS_AUTH_SERVICE_PROJECT: CEMS.AuthService.csproj
     CEMS_AUTH_SERVICE_PUBLISH_PROFILE: ${{ secrets.AUTH_SERVICE_PUBLISH_PROFILE }}
@@ -67,4 +68,9 @@ jobs:
       - name: Install dotnet-ef & Update Database
         run: |
           dotnet tool install --global dotnet-ef
-          dotnet ef database update
+          dotnet ef database update --project ${{CEMS_SOLUTION_PATH}}/CEMS.Dal/CEMS.Dal.csproj --startup-project ${{env.CEMS_AUTH_SERVICE_PATH}}/${{env.CEMS_AUTH_SERVICE_PROJECT}}
+
+      - name: Swap to production slot
+        run: |
+          az webapp deployment slot swap --resource-group ${{ env.AZURE_RESOURCEGROUP_NAME }} --name ${{ env.CEMS_AUTH_SERVICE_NAME }} --slot staging --target-slot production
+          echo "Swap finished. Auth Service Application URL: https://$(az webapp show --resource-group ${{ env.AZURE_RESOURCEGROUP_NAME }} --name ${{ env.CEMS_AUTH_SERVICE_NAME }} --query hostNames[0] -o tsv)"
