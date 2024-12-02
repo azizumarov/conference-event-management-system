@@ -67,6 +67,33 @@ jobs:
           region: centralus # Set this to your target region
           template: repo/CEMS/deployment/Templates/cems-auth-service-resources.json  # Set this to the location of your template file
           parameters: repo/CEMS/deployment/Templates/cems-auth-service-resources.parameters.json seriviceName=${{env.CEMS_AUTH_SERVICE_NAME}} aspName=${{env.CEMS_APP_SERVICE_PLAN_NAME}} # Set this to the location of your parameters file
+
+
+      - name: create db connection string
+        run: |
+          CONN_STR=$(az sql db show-connection-string --client ado.net --server ${{ env.SQLSERVER_NAME }} --name ${{ env.DATABASE_NAME }} -o tsv)
+          echo "$CONN_STR"
+          CONN_STR=$(echo $CONN_STR | sed "s/<username>/${{ env.SQLADMIN_LOGIN }}/g")
+          echo "$CONN_STR"
+          CONN_STR=$(echo $CONN_STR | sed "s/<password>/${{ env.SQLADMIN_PASS }}/g")
+          echo "SQL_DB_CONN_STR=$CONN_STR" >> $GITHUB_ENV
+
+      # Deployment of template    
+      - name: Deploy ARM Template key vault 
+        uses: azure/arm-deploy@v1
+        with:
+          # You can change these environment variables for your configuration:   AZURE_SUBSCRIPTION_ID
+          scope: resourcegroup
+          subscriptionId: ${{ env.AZURE_SUBSCRIPTION_ID }}
+          resourceGroupName: ${{env.AZURE_RESOURCEGROUP_NAME}}
+          region: centralus # Set this to your target region
+          template: repo/CEMS/deployment/Templates/cems-key-vault.json  # Set this to the location of your template file
+          parameters: repo/CEMS/deployment/Templates/cems-key-vault.parameters.json vaults_cems_kv_name=cems_kv cems_db_connection_string=${{ env.SQL_DB_CONN_STR }}
+
+ 
+
+
+
  
 
 

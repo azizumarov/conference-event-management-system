@@ -1,17 +1,8 @@
+using Azure.Identity;
 using CEMS.AuthService.Models;
-using CEMS.Core.Configurations;
-using CEMS.Core.Entities;
 using CEMS.Core.Interfaces;
-using CEMS.Core.RepositoryInterfaces.DalRepositories;
-using CEMS.Dal;
 using CEMS.Dal.Configuration;
-using CEMS.Dal.Models;
-using CEMS.Dal.Repositories;
-using CEMS.Dal.SqlContext;
-using CEMS.Shared;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
-using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
 namespace CEMS.AuthService
@@ -21,8 +12,19 @@ namespace CEMS.AuthService
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateSlimBuilder(args);
-            var configuration = builder.Configuration;
+            var logger = builder.Services.BuildServiceProvider().GetRequiredService<ILogger<Program>>();
+            try
+            {
+                builder.Configuration.AddAzureKeyVault(
+                new Uri($"https://{builder.Configuration["KeyVaultName"]}.vault.azure.net/"),
+                new DefaultAzureCredential());                
+            }
+            catch(Exception ex) 
+            {
+                logger.LogInformation(ex, "Error on adding secrets");
+            }
 
+            var configuration = builder.Configuration;
             
             builder.Services.ConfigureDal(configuration);
 
@@ -35,8 +37,9 @@ namespace CEMS.AuthService
 
             var app = builder.Build();
             
-            app.MapPost("/register", async ([FromBody] AddUserModel model, IAuthService authService) =>
+            app.MapPost("/register", async ([FromBody] AddUserModel model, IAuthService authService, ILogger<Program> logger) =>
             {
+                logger.LogInformation("Registering user");
                 var user = new Core.Entities.User
                 {
                     Id = Guid.NewGuid(),

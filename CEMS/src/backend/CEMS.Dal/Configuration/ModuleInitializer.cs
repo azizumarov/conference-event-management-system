@@ -24,7 +24,7 @@ namespace CEMS.Dal.Configuration
 
         private static void ConfigureDbContext(IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString(Constants.DATABASE_CONNECTION_STRING);
+            var connectionString = configuration[Constants.DATABASE_CONNECTION_STRING] ?? configuration.GetConnectionString(Constants.DATABASE_CONNECTION_STRING);
 
             services.AddDbContext<CemsDBContext>(options =>
             {
