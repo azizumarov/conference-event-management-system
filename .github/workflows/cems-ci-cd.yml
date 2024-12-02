@@ -64,14 +64,7 @@ jobs:
           CONN_STR=$(echo $CONN_STR | sed "s/<password>/${{ env.SQLADMIN_PASS }}/g")
           echo "SQL_DB_CONN_STR=$CONN_STR" >> $GITHUB_ENV
 
-      - name: Fetch latest dotnet-ef 8.0.x version
-        id: get-latest-version
-        run: |
-          curl -s https://api.nuget.org/v3/registration5-gz-semver2/dotnet-ef/index.json | \
-          jq -r '[.items[].items[] | select(.catalogEntry.version | startswith("8.0.")) | .catalogEntry.version] | max' > latest_version.txt
-          echo "LATEST_VERSION=$(cat latest_version.txt)" >> $GITHUB_ENV
-      
       - name: Install dotnet-ef & Update Database
         run: |
-          dotnet tool install --global dotnet-ef --version ${{ env.LATEST_VERSION }}
+          dotnet tool install --global dotnet-ef
           dotnet ef database update
