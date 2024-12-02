@@ -17,7 +17,7 @@ env:
     CEMS_AUTH_SERVICE_PATH: repo/CEMS/src/backend/CEMS.AuthService
     CEMS_AUTH_SERVICE_PROJECT: CEMS.AuthService.csproj
     CEMS_AUTH_SERVICE_PUBLISH_PROFILE: ${{ secrets.AUTH_SERVICE_PUBLISH_PROFILE }}
-    DOTNET_VERSION: '8.0.x'
+    DOTNET_VERSION: '8.0.11'
 jobs:
     build:
       runs-on: ubuntu-latest
