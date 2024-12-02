@@ -17,6 +17,7 @@ env:
     CEMS_AUTH_SERVICE_PROJECT: CEMS.AuthService.csproj
     CEMS_AUTH_SERVICE_PUBLISH_PROFILE: ${{ secrets.AUTH_SERVICE_PUBLISH_PROFILE }}
     DOTNET_VERSION: '8.0.x'
+    LATEST_VERSION: 'xxx'
 jobs:
     build:
       runs-on: ubuntu-latest
@@ -63,7 +64,14 @@ jobs:
           CONN_STR=$(echo $CONN_STR | sed "s/<password>/${{ env.SQLADMIN_PASS }}/g")
           echo "SQL_DB_CONN_STR=$CONN_STR" >> $GITHUB_ENV
 
-      - name: Update Database
+      - name: Fetch latest dotnet-ef 8.0.x version
+        id: get-latest-version
         run: |
-          dotnet tool install --global dotnet-ef --version ${{ env.DOTNET_VERSION }}
+          curl -s https://api.nuget.org/v3/registration5-gz-semver2/dotnet-ef/index.json | \
+          jq -r '[.items[].items[] | select(.catalogEntry.version | startswith("8.0.")) | .catalogEntry.version] | max' > latest_version.txt
+          echo "LATEST_VERSION=$(cat latest_version.txt)" >> $GITHUB_ENV
+      
+      - name: Install dotnet-ef & Update Database
+        run: |
+          dotnet tool install --global dotnet-ef --version ${{ env.LATEST_VERSION }}
           dotnet ef database update
