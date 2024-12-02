@@ -68,7 +68,7 @@ jobs:
       - name: Install dotnet-ef & Update Database
         run: |
           dotnet tool install --global dotnet-ef
-          dotnet ef database update --project ${{CEMS_SOLUTION_PATH}}/CEMS.Dal/CEMS.Dal.csproj --startup-project ${{env.CEMS_AUTH_SERVICE_PATH}}/${{env.CEMS_AUTH_SERVICE_PROJECT}}
+          dotnet ef database update --project ${{env.CEMS_SOLUTION_PATH}}/CEMS.Dal/CEMS.Dal.csproj --startup-project ${{env.CEMS_AUTH_SERVICE_PATH}}/${{env.CEMS_AUTH_SERVICE_PROJECT}}
 
       - name: Swap to production slot
         run: |
