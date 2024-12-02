@@ -37,6 +37,8 @@ namespace CEMS.Dal.Configuration
 
         private static void AddDependenciesToContainer(IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(AppMappingProfile));
+
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IRoleRepository, RoleRepository>();
             services.AddSingleton<IPasswordHasher, PasswordHasher>();

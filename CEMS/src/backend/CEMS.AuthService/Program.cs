@@ -23,9 +23,10 @@ namespace CEMS.AuthService
             var builder = WebApplication.CreateSlimBuilder(args);
             var configuration = builder.Configuration;
 
-            builder.Services.AddScoped<IAuthService, AuthService>();
-
+            
             builder.Services.ConfigureDal(configuration);
+
+            builder.Services.AddScoped<IAuthService, AuthService>();
 
             builder.Services.ConfigureHttpJsonOptions(options =>
             {
