@@ -5,7 +5,7 @@ namespace CEMS.ConferenceService.Tests
         [Fact]
         public void Test1()
         {
-
+            Assert.True(true);
         }
     }
 }

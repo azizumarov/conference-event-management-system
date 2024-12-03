@@ -5,7 +5,7 @@ namespace CEMS.Shared.Tests
         [Fact]
         public void Test1()
         {
-
+            Assert.True(true);
         }
     }
 }
