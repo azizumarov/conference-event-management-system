@@ -13,7 +13,7 @@ env:
     SQLADMIN_PASS: ${{ secrets.SQLADMIN_PASS  }}                 # Create a secret in your Github repo for the SQL Admin password you want to use
     CEMS_APP_SERVICE_PLAN_NAME: cems-app-service
     CEMS_AUTH_SERVICE_NAME: cems-auth-service
-    CEMS_SOLUTION_PATH: repo/CEMS/src/backend/
+    CEMS_SOLUTION_PATH: repo/CEMS/src/backend
     CEMS_AUTH_SERVICE_PATH: repo/CEMS/src/backend/CEMS.AuthService
     CEMS_AUTH_SERVICE_PROJECT: CEMS.AuthService.csproj
     CEMS_AUTH_SERVICE_PUBLISH_PROFILE: ${{ secrets.AUTH_SERVICE_PUBLISH_PROFILE }}
