@@ -6,7 +6,7 @@
       "value": "GEN-UNIQUE"
     },
     "cems_db_connection_string_name": {
-      "value": "CEMSDatabase"      
+      "value": "CEMSDatabase"
     },
     "cems_db_connection_string": {
       "value": "GEN-UNIQUE"
