@@ -1,4 +1,4 @@
-@CEMS.AuthService_HostAddress = http://localhost:5240
+@CEMS.AuthService_HostAddress = https://cems-auth-service.azurewebsites.net
 
 POST {{CEMS.AuthService_HostAddress}}/register/
 Accept: application/json

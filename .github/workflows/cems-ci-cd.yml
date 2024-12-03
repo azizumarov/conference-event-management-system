@@ -35,11 +35,21 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }} 
 
+      # Restore dependencies
+      - name: Restore dependencies
+        run: |
+          dotnet restore ${{env.CEMS_SOLUTION_PATH}}/CEMS.sln
+
       # Run dotnet build and publish
       - name: dotnet build and publish
         run: |
-          dotnet build ${{env.CEMS_AUTH_SERVICE_PATH}}/${{env.CEMS_AUTH_SERVICE_PROJECT}} --configuration Release
+          dotnet build ${{env.CEMS_AUTH_SERVICE_PATH}}/${{env.CEMS_AUTH_SERVICE_PROJECT}} --configuration Release --no-restore
           dotnet publish ${{env.CEMS_AUTH_SERVICE_PATH}}/${{env.CEMS_AUTH_SERVICE_PROJECT}} -c Release -o ${{env.CEMS_AUTH_SERVICE_PATH}}/myapp 
+
+      #Run Test
+      - name: test
+        run: |
+          dotnet test ${{env.CEMS_SOLUTION_PATH}}/CEMS.sln --no-build
 
       # Deploy to Azure Web apps staging slot
       - name: 'Run Azure webapp deploy action using publish profile credentials'

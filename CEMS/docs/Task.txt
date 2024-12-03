@@ -1,0 +1,32 @@
+Online conference organizer needs a management system for the conferences he runs for both speakers and attendees
+
+Users: hundreds of speakers, dozens of event staff, thousands of attendees
+
+Requirements:
+ attendees can access speaking schedule online, including room assignments
+ speakers can manage talks (enter, edit, modify)
+ attendees 'vote up/down' talks
+ organizer can notify attendees of schedule changes
+ each conference (being a different subject) can be branded independently
+ speaker slides are accessible online only to attendees
+ evaluation system via web page, email, SMS, or phone
+ system should contain AI assistant that help to find interesting conferences
+
+Technical considerations
+
+The customer has plans to create a cloud-native solution. They are looking for well-reasoned guidance regarding which cloud provider would fit them best. They expect to have all required environments, CI/CD pipelines, databases in the cloud of one of top cloud vendors;
+Preferable platform is the technology of your choice for both backend and frontend;
+The customer expects our solution to be the same tech quality as the code that you write in your day-to-day job;
+
+Expectations
+You have to create a solution design with the necessary diagrams and documentation. The solution should satisfy the provided requirements;
+We have a scheduled meeting with the customer people - project managers, the architect and a technical lead; We need to come to the client’s office and perform a short presentation of the architecture with a live demo of the application.
+They will definitely ask technical questions, and we expect a discussion regarding the solution details and technical implementation;
+Please prepare a solution skeleton in your favorite programming language;
+For the life-demo, we need to find out what user journey we can show at the meeting, and will be great to deploy somewhere in a cloud.
+Have your skeleton up and running and your favorite IDE open with the skeleton code as they will ask to do some live coding to address their concern around this area so new features may be added to the skeleton on the fly.
+ 
+This is description of the task. 
+Feel free to ask any questions that can help you clarify architecture of the solution. 
+Due to pre-assessment nature of the solution you have one week for questions. 
+ 

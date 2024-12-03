@@ -1,0 +1,59 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "managedEnvironment_cems-env_name": {
+      "type": "string"
+    },
+    "managedEnvironment_cems-env_LocationId": {
+      "type": "string"
+    },
+    "managedEnvironment_cems-env_logAnalyticsName": {
+      "type": "string"
+    },
+    "logAnalytics_cems-logAnalytics_name": {
+      "type": "string"
+    },
+    "logAnalytics_cems-logAnalytics_LocationId": {
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "apiVersion": "2023-05-01",
+      "type": "Microsoft.App/managedEnvironments",
+      "properties": {
+        "appLogsConfiguration": {
+          "destination": "log-analytics",
+          "logAnalyticsConfiguration": {
+            "customerId": "[reference(resourceId('Microsoft.OperationalInsights/workspaces', parameters('managedEnvironment_cems-env_logAnalyticsName')), '2015-11-01-preview').customerId]",
+            "sharedKey": "[listkeys(resourceId('Microsoft.OperationalInsights/workspaces', parameters('managedEnvironment_cems-env_logAnalyticsName')), '2015-03-20').primarySharedKey]"
+          }
+        },
+        "workloadProfiles": [
+          {
+            "name": "Consumption",
+            "workloadProfileType": "Consumption"
+          }
+        ]
+      },
+      "name": "[parameters('managedEnvironment_cems-env_name')]",
+      "location": "[parameters('managedEnvironment_cems-env_LocationId')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('logAnalytics_cems-logAnalytics_name'))]",
+        "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('logAnalytics_cems-logAnalytics_name'))]"
+      ]
+    },
+    {
+      "apiVersion": "2017-03-15-preview",
+      "type": "Microsoft.OperationalInsights/workspaces",
+      "properties": {
+        "sku": {
+          "name": "pergb2018"
+        }
+      },
+      "name": "[parameters('logAnalytics_cems-logAnalytics_name')]",
+      "location": "[parameters('logAnalytics_cems-logAnalytics_LocationId')]"
+    }
+  ]
+}

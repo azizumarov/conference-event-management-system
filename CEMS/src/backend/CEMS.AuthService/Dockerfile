@@ -20,25 +20,16 @@ RUN apt-get update \
     clang zlib1g-dev
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["CEMS.AuthService/CEMS.AuthService.csproj", "CEMS.AuthService/"]
-RUN dotnet restore "./CEMS.AuthService/CEMS.AuthService.csproj"
+COPY ["CEMS.AuthService.csproj", "./"]
+RUN dotnet restore "./CEMS.AuthService.csproj"
 COPY . .
 WORKDIR "/src/CEMS.AuthService"
-RUN dotnet build "./CEMS.AuthService.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "CEMS.AuthService.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./CEMS.AuthService.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=true
-
-# This stage is used as the base for the final stage when launching from VS to support debugging in regular mode (Default when not using the Debug configuration)
-FROM base as aotdebug
-USER root
-# Install GDB to support native debugging
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-    gdb
-USER app
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM ${FINAL_BASE_IMAGE:-mcr.microsoft.com/dotnet/runtime-deps:8.0} AS final
