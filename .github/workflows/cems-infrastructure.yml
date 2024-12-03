@@ -88,7 +88,7 @@ jobs:
           resourceGroupName: ${{env.AZURE_RESOURCEGROUP_NAME}}
           region: centralus # Set this to your target region
           template: repo/CEMS/deployment/Templates/cems-key-vault.json  # Set this to the location of your template file
-          parameters: repo/CEMS/deployment/Templates/cems-key-vault.parameters.json vaultsCemsKvName=cems_kv cemsDbConnectionString=${{ env.SQL_DB_CONN_STR }}
+          parameters: repo/CEMS/deployment/Templates/cems-key-vault.parameters.json vaultsCemsKvName=cems_kv cemsDbConnectionString="${{ env.SQL_DB_CONN_STR }}"
 
  
 
