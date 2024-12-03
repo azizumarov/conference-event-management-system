@@ -2,13 +2,13 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "vaults_cems_kv_name": {
+    "vaultsCemsKvName": {
       "value": "GEN-UNIQUE"
     },
-    "cems_db_connection_string_name": {
+    "cemsDbConnectionStringName": {
       "value": "CEMSDatabase"
     },
-    "cems_db_connection_string": {
+    "cemsDbConnectionString": {
       "value": "GEN-UNIQUE"
     }
   }

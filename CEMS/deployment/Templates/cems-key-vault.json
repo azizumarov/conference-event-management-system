@@ -2,19 +2,17 @@
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "parameters": {
-      "vaults_cems_kv_name": {
-        "defaultValue": "cems-kv",
-        "type": "String"
-      },
-      "cems_db_connection_string_name": {
-        "defaultValue": "CEMSDatabase",
-        "type": "String"
-      },
-      "cems_db_connection_string": {
-        "defaultValue": "SomeConnectionString",
-        "type": "String"
-      }
+    "vaultsCemsKvName": {
+      "defaultValue": "cems-kv",
+      "type": "String"
+    },
+    "cemsDbConnectionStringName": {
+      "defaultValue": "CEMSDatabase",
+      "type": "String"
+    },
+    "cemsDbConnectionString": {
+      "defaultValue": "SomeConnectionString",
+      "type": "String"
     }
   },
   "variables": {},
@@ -22,7 +20,7 @@
     {
       "type": "Microsoft.KeyVault/vaults",
       "apiVersion": "2023-08-01-preview",
-      "name": "[parameters('vaults_cems_kv_name')]",
+      "name": "[parameters('vaultsCemsKvName')]",
       "location": "[resourceGroup().location]",
       "dependsOn": [],
       "tags": {},
@@ -45,16 +43,16 @@
     {
       "type": "Microsoft.KeyVault/vaults/secrets",
       "apiVersion": "2024-04-01-preview",
-      "name": "[concat(parameters('vaults_cems_kv_name'),'/',parameters('cems_db_connection_string_name'))]",
+      "name": "[concat(parameters('vaultsCemsKvName'),'/',parameters('cemsDbConnectionStringName'))]",
       "location": "[resourceGroup().location]",
       "dependsOn": [
-        "[resourceId('Microsoft.KeyVault/vaults', parameters('vaults_cems_kv_name'))]"
+        "[resourceId('Microsoft.KeyVault/vaults', parameters('vaultsCemsKvName'))]"
       ],
       "properties": {
         "attributes": {
           "enabled": true
         },
-        "value": "[parameters('cems_db_connection_string')]"
+        "value": "[parameters('cemsDbConnectionString')]"
       }
     }
   ],
