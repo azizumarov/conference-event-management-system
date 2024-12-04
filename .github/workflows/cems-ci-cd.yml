@@ -45,20 +45,11 @@ jobs:
         run: |
           dotnet build ${{env.CEMS_AUTH_SERVICE_PATH}}/${{env.CEMS_AUTH_SERVICE_PROJECT}} --configuration Release --no-restore
           dotnet publish ${{env.CEMS_AUTH_SERVICE_PATH}}/${{env.CEMS_AUTH_SERVICE_PROJECT}} -c Release -o ${{env.CEMS_AUTH_SERVICE_PATH}}/myapp 
-
+      
       #Run Test
       - name: test
         run: |
           dotnet test ${{env.CEMS_SOLUTION_PATH}}/CEMS.sln
-
-      # Deploy to Azure Web apps staging slot
-      - name: 'Run Azure webapp deploy action using publish profile credentials'
-        uses: azure/webapps-deploy@v2
-        with: 
-          app-name: ${{ env.CEMS_AUTH_SERVICE_NAME }} # Replace with your app name
-          publish-profile: ${{ secrets.AUTH_SERVICE_PUBLISH_PROFILE }} # Define secret variable in repository settings as per action documentation
-          package: '${{ env.CEMS_AUTH_SERVICE_PATH }}/myapp'
-          slot-name: staging
 
       - name: Azure Login
         uses: azure/login@v1
@@ -81,6 +72,14 @@ jobs:
         env:
           ConnectionStrings__CEMSDatabase: ${{ env.SQL_DB_CONN_STR }}
 
+      # Deploy to Azure Web apps staging slot
+      - name: 'Run Azure webapp deploy action using publish profile credentials'
+        uses: azure/webapps-deploy@v2
+        with: 
+          app-name: ${{ env.CEMS_AUTH_SERVICE_NAME }} # Replace with your app name
+          publish-profile: ${{ secrets.AUTH_SERVICE_PUBLISH_PROFILE }} # Define secret variable in repository settings as per action documentation
+          package: '${{ env.CEMS_AUTH_SERVICE_PATH }}/myapp'
+          slot-name: staging
 
       - name: Swap to production slot
         run: |
